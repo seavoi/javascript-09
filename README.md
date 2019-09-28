@@ -4,6 +4,4 @@ Sean Voigts (https://teamtreehouse.com/projects/rest-api)
 
 ## Howdy!
 
--
-
-Next Step: Sort out routes
+- Next Step: Sort out routes
