@@ -3,36 +3,39 @@
 // load modules
 const express = require('express');
 const morgan = require('morgan');
-const { sequelize, models } = require('./db');
 
 // variable to enable global error logging
 const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
 
+// Require Database
+const db = require('./db');
+
 // create the Express app
 const app = express();
 
-// Get references to our models.
-// const { Courses, Users } = models;
+// Setup JSON Parsing
+app.use(express.json());
 
 // setup morgan which gives us http request logging
 app.use(morgan('dev'));
 
-(async () => {
-  try {
-    // Test the connection to the database
-    console.log('Connection to the database successful!');
-    await sequelize.authenticate();
-    } catch(error) {
-    if (error.name === 'SequelizeValidationError') {
-      const errors = error.errors.map(err => err.message);
-      console.error('Validation errors: ', errors);
-    } else {
-      throw error;
-    }
-  }
-})();
+
+
 
 // TODO setup your api routes here
+
+// GET /api/users 200 - Returns the currently authenticated user
+app.get('/api/users', (req, res) => {
+  
+});
+
+// POST /api/users 201 - Creates a user, sets the Location header to "/", and returns no content
+app.post('/api/users', (req, res) => {
+  
+});
+
+
+
 
 // setup a friendly greeting for the root route
 app.get('/', (req, res) => {
