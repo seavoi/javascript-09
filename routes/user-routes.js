@@ -9,15 +9,10 @@ const { check, validationResult } = require('express-validator/check');
 const db = require('../db');
 const { User } = db.models;
 
-/*  This array is used to keep track of user records as they are created.
-const users = []; */
-
-
 // Authentication Middleware 
 const authenticateUser = require('../middleware/authenticateUser');
 
 // Return the currently authenticated user
-
 router.get('/users', authenticateUser, async (req, res, next) => {
   try {
     const user = await req.currentUser;
@@ -32,7 +27,6 @@ router.get('/users', authenticateUser, async (req, res, next) => {
 });
 
 // Create a user
-
 router.post('/users', [
   check('firstName')
     .exists({ checkNull: true, checkFalsy: true })
@@ -60,19 +54,9 @@ router.post('/users', [
     return res.status(400).json({ errors: errorMessages });
   }
 
-  // Get the user from the request body.
   const user = req.body;
-
   console.log(user);
   User.create(user);
-
-  /* Hash the new user's password.
-  user.password = bcryptjs.hashSync(user.password); */
-
-  /* Add the user to the `users` array.
-  users.push(user); */
-
-  // Set the status to 201 Created and end the response.
   res.status(201).end();
 
 });
