@@ -1,5 +1,3 @@
-'use strict';
-
 const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize ({
@@ -18,10 +16,21 @@ const sequelize = new Sequelize ({
   }	
 })();
 
-const models = {};
+/* const models = {};
 
 module.exports = {
   sequelize,
   Sequelize,
   models,
+}; */
+ 
+const db = {
+  sequelize,
+  Sequelize,
+  models: {},
 };
+
+//db.models.Course = require('./models/course.js')(sequelize);
+db.models.User = require('./models/user.js')(sequelize);
+
+module.exports = db;
