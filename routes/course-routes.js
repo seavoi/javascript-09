@@ -11,10 +11,9 @@ let course;
 router.get('/courses', async (req, res, next) => {
   try {
     course = await Course.findAll({course});
-    console.log(course);
+    // console.log(course);
     res.status(200).json({
-      title: course.dataValues.title,
-      description: course.dataValues.description,
+      course,
     });
   } catch (err) {
     console.error("There's been an error: ", err);
@@ -23,3 +22,7 @@ router.get('/courses', async (req, res, next) => {
 
 // Export
 module.exports = router;
+
+
+// To get just title -=-=- You would have to loop through the courses array that is returned from the findAll and then retrieve the title property.
+// There is a handy method called findOne which will just give you one course which is good for your /courses/:id route 
