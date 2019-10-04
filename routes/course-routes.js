@@ -5,14 +5,16 @@ const router = express.Router();
 const db = require('../db');
 const { Course } = db.models;
 
-let course;
+let courses;
 
 // Return a list of courses
 router.get('/courses', async (req, res, next) => {
   try {
-    course = await Course.findAll({course});
+    courses = await Course.findAll({courses});
+    console.log(courses);
     res.status(200).json({
-      title: course.title,
+      title: courses.title,
+      description: courses.description,
     });
   } catch (err) {
     console.error("There's been an error: ", err);
