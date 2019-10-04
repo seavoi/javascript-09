@@ -19,20 +19,20 @@ app.use(express.json());
 // setup morgan which gives us http request logging
 app.use(morgan('dev'));
 
+// Course Route
+const courseRoute = require('./routes/course-routes');
+app.use('/api', courseRoute);
+
+// User Route
+const userRoute = require('./routes/user-routes');
+app.use('/api', userRoute);
+
 // setup a friendly greeting for the root route
 app.get('/', (req, res) => {
   res.json({
     message: 'Welcome to the REST API project!',
   });
 });
-
-// User Route
-const userRoute = require('./routes/user-routes');
-app.use('/api', userRoute);
-
-// Course Route
-// const courseRoute = require('./routes/course-routes');
-// app.use('/api', courseRoute);
 
 // send 404 if no other route matched
 app.use((req, res) => {
@@ -54,7 +54,7 @@ app.use((err, req, res, next) => {
 });
 
 // set our port
-app.set('port', process.env.PORT || 777);
+app.set('port', process.env.PORT || 7000);
 
 // start listening on our port
 const server = app.listen(app.get('port'), () => {

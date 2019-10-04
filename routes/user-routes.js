@@ -3,7 +3,7 @@ const express = require('express');
 // Require Express Router
 const router = express.Router();
 // Require a Validation Library
-const { check, validationResult } = require('express-validator/check');
+const validationResult = require('express-validator');
 
 // Database
 const db = require('../db');
@@ -26,21 +26,11 @@ router.get('/users', authenticateUser, async (req, res, next) => {
   }
 });
 
+// Validation Middleware 
+const checkUser = require('../middleware/checkUser');
+
 // Create a user
-router.post('/users', [
-  check('firstName')
-    .exists({ checkNull: true, checkFalsy: true })
-    .withMessage('Please provide a value for "firstName"'),
-  check('lastName')
-    .exists({ checkNull: true, checkFalsy: true })
-    .withMessage('Please provide a value for "lastName"'),
-  check('emailAddress')
-    .exists({ checkNull: true, checkFalsy: true })
-    .withMessage('Please provide a value for "emailAddress"'),
-  check('password')
-    .exists({ checkNull: true, checkFalsy: true })
-    .withMessage('Please provide a value for "password"'),
-], (req, res) => {
+router.post('/users', checkUser, (req, res) => {
 
   // Attempt to get the validation result from the Request object.
   const errors = validationResult(req);

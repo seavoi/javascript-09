@@ -11,12 +11,6 @@
       "lastName": "Jones",
       "emailAddress": "sally@jones.com",
       "password": "sallypassword"
-    }, 
-    {
-      "firstName": "Sean",
-      "lastName": "Voigts",
-      "emailAddress": "sean@voigts.com",
-      "password": "seanpassword"
     }
   ],
   "courses": [

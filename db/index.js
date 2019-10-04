@@ -8,21 +8,12 @@ const sequelize = new Sequelize ({
 
 (async () => {
   try {
-	  // Test the connection to the database
 	  await sequelize.authenticate();
 	  console.log('Nailed it! The database is connected.');
-  } catch(error) {
-	  	console.error('Database connection error: ', error);
+  } catch (error) {
+  	console.error('Oh no! Database connection error: ', error);
   }	
 })();
-
-/* const models = {};
-
-module.exports = {
-  sequelize,
-  Sequelize,
-  models,
-}; */
  
 const db = {
   sequelize,
@@ -30,7 +21,7 @@ const db = {
   models: {},
 };
 
-//db.models.Course = require('./models/course.js')(sequelize);
+db.models.Course = require('./models/course.js')(sequelize);
 db.models.User = require('./models/user.js')(sequelize);
 
 module.exports = db;
