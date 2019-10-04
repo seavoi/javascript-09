@@ -3,7 +3,7 @@ const express = require('express');
 // Require Express Router
 const router = express.Router();
 // Require a Validation Library
-const validationResult = require('express-validator');
+const { validationResult } = require('express-validator');
 
 // Database
 const db = require('../db');
