@@ -12,10 +12,31 @@ router.get('/courses', async (req, res, next) => {
   try {
     course = await Course.findAll({course});
     // console.log(course);
-    res.status(200).json({
-      course,
-    });
+    res.status(200).json({course});
   } catch (err) {
+    console.error("There's been an error: ", err);
+  }
+})
+
+// Return course by ID
+router.get('/courses/:id', async (req, res, next) => {
+  try {
+    course = await Course.findByPk(req.params.id);
+    // console.log(course);
+    res.status(200).json({course});
+  } catch (err) {
+    console.error("There's been an error: ", err);
+  }
+})
+
+// Create a new course
+router.post('/courses', async (req, res, next) => {
+	try {
+
+		// Content goes here
+
+		res.status(201);
+	} catch (err) {
     console.error("There's been an error: ", err);
   }
 })
