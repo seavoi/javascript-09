@@ -12,6 +12,9 @@ const { User } = db.models;
 // Authentication Middleware 
 const authenticateUser = require('../middleware/authenticateUser');
 
+// Validation Middleware 
+const checkUser = require('../middleware/checkUser');
+
 // Return the currently authenticated user
 router.get('/users', authenticateUser, async (req, res, next) => {
   try {
@@ -25,9 +28,6 @@ router.get('/users', authenticateUser, async (req, res, next) => {
     console.error("There's been an error: ", err);
   }
 });
-
-// Validation Middleware 
-const checkUser = require('../middleware/checkUser');
 
 // Create a user
 router.post('/users', checkUser, (req, res) => {

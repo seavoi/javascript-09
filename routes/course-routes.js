@@ -5,18 +5,24 @@ const router = express.Router();
 const db = require('../db');
 const { Course } = db.models;
 
+// Require a Validation Library
+const { validationResult } = require('express-validator');
+
+// Validation Middleware 
+const checkCourse = require('../middleware/checkCourse');
+
 let course;
 
 // Return a list of courses
 router.get('/courses', async (req, res, next) => {
   try {
     course = await Course.findAll({course});
-    // console.log(course);
-    res.status(200).json({course});
+    console.log(course);
+    res.json({course}).status(200);
   } catch (err) {
     console.error("There's been an error: ", err);
   }
-})
+});
 
 // Return course by ID
 router.get('/courses/:id', async (req, res, next) => {
@@ -27,19 +33,58 @@ router.get('/courses/:id', async (req, res, next) => {
   } catch (err) {
     console.error("There's been an error: ", err);
   }
-})
+});
 
-// Create a new course
-router.post('/courses', async (req, res, next) => {
-	try {
+// Create a course
+router.post('/courses', checkCourse, (req, res) => {
 
-		// Content goes here
+  const errors = validationResult(req);
 
-		res.status(201);
-	} catch (err) {
+  if (!errors.isEmpty()) {
+    const errorMessages = errors.array().map(error => error.msg);
+    return res.status(400).json({ errors: errorMessages });
+  }
+
+  course = req.body;
+  //console.log(course);
+  Course.create(course);
+  res.location(`localhost:5000/api/courses/${course.id}`).status(201).end();
+
+});
+
+// Update a course
+router.put('/courses/:id', checkCourse, async (req, res, next) => {
+
+  try {
+    const errors = validationResult(req);
+    const course = await Course.findByPk(req.params.id);
+
+    if (!errors.isEmpty()) {
+      const errorMessages = errors.array().map(error => error.msg);
+      return res.status(400).json({ errors: errorMessages });
+    }
+
+    await course.update(req.body);
+    res.status(204).json({ course }).end();
+
+  } catch (err) {
     console.error("There's been an error: ", err);
   }
-})
+
+});
+
+// Delete course by ID
+router.delete('/courses/:id', async (req, res) => {
+  try {
+    course = await Course.findByPk(req.params.id);
+    // console.log(course);
+    course.destroy();
+    res.status(204).end();
+  } catch (err) {
+    console.error("There's been an error: ", err);
+  }
+});
+
 
 // Export
 module.exports = router;
