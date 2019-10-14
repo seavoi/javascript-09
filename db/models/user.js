@@ -6,23 +6,23 @@ module.exports = (sequelize) => {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     firstName: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: false
     },
     lastName: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: false
     },
     emailAddress: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: false
     },
     password: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: false
     },
   }, { sequelize });
 
@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
     User.hasMany(models.Course, {
       foreignKey: {
         fieldName: 'userId',
-        allowNull: false,
+        allowNull: false
       },
     });
   };

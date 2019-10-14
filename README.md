@@ -6,29 +6,29 @@ Sean Voigts (https://teamtreehouse.com/projects/rest-api)
 
 Task list:
 
-[] User Routes
+User Routes
 
-	- [] Location for create users
-
-
-[] Course Routes
-
-	- [] GET courses missing user owner
-
-	- [] GET courses/:id missing user owner
-
-	- [] POST/PUT/DELETE user authentication
-
-	- [] Location for create courses
+  - Location for create users
 
 
-[] Password
+Course Routes
 
-  - [] POST users route doesn't hash user's password
+  - GET courses missing user owner **GETING ERROR: "SequelizeEagerLoadingError: User is not associated to Course!"**
+
+  - GET courses/:id missing user owner
+
+  - POST/PUT/DELETE user authentication
+
+  - *Location for create courses* **DONE**
 
 
-[] Permissions
+Password
 
-	- [] Missing Express middleware to authenticate one more of the specified routes
+  - POST users route doesn't hash user's password
 
-	- [] When authentication fails a 401 status code isn't retured
+
+Permissions
+
+  - Missing Express middleware to authenticate one more of the specified routes
+
+  - When authentication fails a 401 status code isn't retured

@@ -10,22 +10,23 @@ module.exports = (sequelize) => {
     },
     userId: {
       type: Sequelize.INTEGER,
-      allowNull: false,
-      foreignKey: true
+      allowNull: false
     },
     title: {
       type: Sequelize.STRING,
+      allowNull: false
     },
     description: {
       type: Sequelize.TEXT,
+      allowNull: false
     },
     estimatedTime: {
       type: Sequelize.STRING,
-      allowNull: true,
+      allowNull: true
     },
     materialsNeeded: {
       type: Sequelize.STRING,
-      allowNull: true,
+      allowNull: true
     },
   }, { sequelize });
 
@@ -33,7 +34,7 @@ module.exports = (sequelize) => {
     Course.belongsTo(models.User, {
       foreignKey: {
         fieldName: 'userID',
-        allowNull: false,
+        allowNull: false
       },
     });
   };

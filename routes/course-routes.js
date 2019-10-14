@@ -3,7 +3,7 @@ const router = express.Router();
 
 // Database
 const db = require('../db');
-const { Course } = db.models;
+const { Course, User } = db.models;
 
 // Require a Validation Library
 const { validationResult } = require('express-validator');
@@ -11,14 +11,28 @@ const { validationResult } = require('express-validator');
 // Validation Middleware 
 const checkCourse = require('../middleware/checkCourse');
 
+let user;
 let course;
 
 // Return a list of courses
 router.get('/courses', async (req, res, next) => {
   try {
-    course = await Course.findAll({course});
-    console.log(course);
-    res.json({course}).status(200);
+    course = await Course.findAll({
+      model: Course,
+      attributes: {
+        include: ['id', 'userId', 'title', 'description', 'estimatedTime', 'materialsNeeded'],
+        exclude: ['createdAt', 'updatedAt']
+      },
+      include: [{
+        model: User,
+        attributes: {
+          include: ['id', 'firstName', 'lastName', 'emailAddress'],
+          exclude: ['password', 'createdAt', 'updatedAt']
+        }
+      }]
+    });
+    res.json(course).status(200);
+    //console.log(course);
   } catch (err) {
     console.error("There's been an error: ", err);
   }
