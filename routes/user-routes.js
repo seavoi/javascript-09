@@ -47,7 +47,7 @@ router.post('/users', checkUser, (req, res) => {
   const user = req.body;
   console.log(user);
   User.create(user);
-  res.status(201).end();
+  res.location(`/`).status(201).end();
 
 });
 

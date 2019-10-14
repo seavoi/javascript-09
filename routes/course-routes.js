@@ -36,7 +36,7 @@ router.get('/courses/:id', async (req, res, next) => {
 });
 
 // Create a course
-router.post('/courses', checkCourse, (req, res) => {
+router.post('/courses', checkCourse, async (req, res, next) => {
 
   const errors = validationResult(req);
 
@@ -47,8 +47,8 @@ router.post('/courses', checkCourse, (req, res) => {
 
   course = req.body;
   //console.log(course);
-  Course.create(course);
-  res.location(`localhost:5000/api/courses/${course.id}`).status(201).end();
+  const createCourse = await Course.create(course);
+  res.location(`/api/courses/${createCourse.id}`).status(201).end();
 
 });
 
