@@ -2,6 +2,9 @@
 const express = require('express');
 // Require Express Router
 const router = express.Router();
+
+const bcrypt = require('bcryptjs');
+
 // Require a Validation Library
 const { validationResult } = require('express-validator');
 
@@ -30,7 +33,7 @@ router.get('/users', authenticateUser, async (req, res, next) => {
 });
 
 // Create a user
-router.post('/users', checkUser, (req, res) => {
+router.post('/users', authenticateUser, checkUser, (req, res) => {
 
   // Attempt to get the validation result from the Request object.
   const errors = validationResult(req);
@@ -45,7 +48,8 @@ router.post('/users', checkUser, (req, res) => {
   }
 
   const user = req.body;
-  console.log(user);
+  user.password = bcrypt.hashSync(user.password);
+  //console.log(user);
   User.create(user);
   res.location(`/`).status(201).end();
 

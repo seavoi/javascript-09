@@ -1,6 +1,5 @@
 // Require bcrypt.js - Hashing User Passwords
 const bcryptjs = require('bcryptjs');
-// Require Basic Auth (A Library to Parse the Authorization Header)
 const auth = require('basic-auth');
 
 // Database
@@ -33,9 +32,6 @@ const authenticateUser = async (req, res, next) => {
 
       // If the passwords match...
       if (authenticated) {
-        console.log(`Authentication successful for username: ${user.emailAddress}`);
-
-        // Then store the retrieved user object on the request object so any middleware functions that follow this middleware function will have access to the user's information.
         req.currentUser = user;
       } else {
         message = `Authentication failure for username: ${user.emailAddress}`;
@@ -44,7 +40,7 @@ const authenticateUser = async (req, res, next) => {
       message = `User not found for username: ${credentials.name}`;
     }
   } else {
-    message = 'Oops, no Auth header was found';
+    message = 'Oops, no authorization header was found';
   }
 
   // If user authentication failed...

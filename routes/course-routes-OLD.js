@@ -12,9 +12,6 @@ const { validationResult } = require('express-validator');
 // Validation Middleware 
 const checkCourse = require('../middleware/checkCourse');
 
-// Authentication Middleware 
-const authenticateUser = require('../middleware/authenticateUser');
-
 let course;
 
 // Return a list of courses
@@ -26,17 +23,13 @@ router.get('/courses', async (req, res, next) => {
         include: ['id', 'userId', 'title', 'description', 'estimatedTime', 'materialsNeeded'],
         exclude: ['createdAt', 'updatedAt']
       },
-
-      // GETING ERROR: "SequelizeEagerLoadingError: User is not associated to Course!"
-
-      include: [{ 
+      include: [{
         model: User,
         attributes: {
           include: ['id', 'firstName', 'lastName', 'emailAddress'],
           exclude: ['password', 'createdAt', 'updatedAt']
         }
       }]
-
     });
     res.json({course}).status(200);
     //console.log(course);
@@ -57,29 +50,24 @@ router.get('/courses/:id', async (req, res, next) => {
 });
 
 // Create a course
-router.post('/courses', authenticateUser, checkCourse, async (req, res) => {
+router.post('/courses', checkCourse, async (req, res, next) => {
 
-  try {
+  const errors = validationResult(req);
 
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      const errorMessages = errors.array().map(error => error.msg);
-      return res.status(400).json({ errors: errorMessages });
-    } else {
-      course = await Course.create(req.body);
-      //console.log(course);
-      res.location(`/api/courses/${course.id}`).status(201).end();
-    }
-
-  } catch (err) {
-    console.error("There's been an error: ", err);
+  if (!errors.isEmpty()) {
+    const errorMessages = errors.array().map(error => error.msg);
+    return res.status(400).json({ errors: errorMessages });
   }
+
+  course = req.body;
+  //console.log(course);
+  const createCourse = await Course.create(course);
+  res.location(`/api/courses/${createCourse.id}`).status(201).end();
 
 });
 
 // Update a course
-router.put('/courses/:id', authenticateUser, checkCourse, async (req, res, next) => {
+router.put('/courses/:id', checkCourse, async (req, res, next) => {
 
   try {
     const errors = validationResult(req);
@@ -100,7 +88,7 @@ router.put('/courses/:id', authenticateUser, checkCourse, async (req, res, next)
 });
 
 // Delete course by ID
-router.delete('/courses/:id', authenticateUser, async (req, res) => {
+router.delete('/courses/:id', async (req, res) => {
   try {
     course = await Course.findByPk(req.params.id);
     // console.log(course);

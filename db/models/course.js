@@ -10,31 +10,30 @@ module.exports = (sequelize) => {
     },
     userId: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
+      foreignKey: true
     },
     title: {
       type: Sequelize.STRING,
-      allowNull: false
     },
     description: {
       type: Sequelize.TEXT,
-      allowNull: false
     },
     estimatedTime: {
       type: Sequelize.STRING,
-      allowNull: true
+      allowNull: true,
     },
     materialsNeeded: {
       type: Sequelize.STRING,
-      allowNull: true
+      allowNull: true,
     },
   }, { sequelize });
 
   Course.associate = (models) => {
     Course.belongsTo(models.User, {
       foreignKey: {
-        fieldName: 'userID',
-        allowNull: false
+        fieldName: 'userId',
+        allowNull: false,
       },
     });
   };
