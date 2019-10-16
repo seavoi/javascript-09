@@ -13,9 +13,9 @@ Task list:
 
 **Course Routes**
 
-  - GET courses missing user owner **GETING ERROR: "SequelizeEagerLoadingError: User is not associated to Course!"**
+  - ~~GET courses missing user owner **GETING ERROR: "SequelizeEagerLoadingError: User is not associated to Course!"**~~ *Done!* *Returning UserId from the Course model is good!*
 
-  - GET courses/:id missing user owner
+  - ~~GET courses/:id missing user owner~~ *Done!* *Returning UserId from the Course model is good!*
 
   - POST/PUT/DELETE user authentication **Bug** When I get an authentication failure the requested route still runs which isn't ideal
 
