@@ -33,7 +33,7 @@ router.get('/users', authenticateUser, async (req, res, next) => {
 });
 
 // Create a user
-router.post('/users', authenticateUser, checkUser, (req, res) => {
+router.post('/users', checkUser, (req, res) => {
 
   // Attempt to get the validation result from the Request object.
   const errors = validationResult(req);
