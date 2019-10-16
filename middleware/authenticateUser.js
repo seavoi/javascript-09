@@ -48,9 +48,9 @@ const authenticateUser = async (req, res, next) => {
     console.warn(message);
     // Return a response with a 401 Unauthorized HTTP status code.
     res.status(401).json({ message: 'Access Denied' });
-  } 
-
-  next();
+  } else {
+    next();
+  }
 
 };
 

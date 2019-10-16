@@ -27,7 +27,9 @@ router.get('/courses', async (req, res, next) => {
         exclude: ['createdAt', 'updatedAt']
       },
 
-      // GETING ERROR: "SequelizeEagerLoadingError: User is not associated to Course!"
+      /* GETING ERROR: "SequelizeEagerLoadingError: User is not associated to Course!"
+
+      - - But I was told return UserId is sufficent! 
 
       include: [{ 
         model: User,
@@ -35,7 +37,7 @@ router.get('/courses', async (req, res, next) => {
           include: ['id', 'firstName', 'lastName', 'emailAddress'],
           exclude: ['password', 'createdAt', 'updatedAt']
         }
-      }]
+      }] */
 
     });
     res.json({course}).status(200);
