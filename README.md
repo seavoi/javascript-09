@@ -17,7 +17,7 @@ Task list:
 
   - ~~GET courses/:id missing user owner~~ *Done!* *Returning UserId from the Course model is good!*
 
-  - POST/PUT/DELETE user authentication **Bug** When I get an authentication failure the requested route still runs which isn't ideal
+  - ~~POST/PUT/DELETE user authentication **Bug** When I get an authentication failure the requested route still runs which isn't ideal~~ *Done!*
 
   - ~~Location for create courses~~ *Done!*
 
@@ -29,9 +29,9 @@ Task list:
 
 **Permissions**
 
-  - Missing Express middleware to authenticate one more of the specified routes
+  - ~~Missing Express middleware to authenticate one more of the specified routes~~ *Done!*
 
-  - When authentication fails a 401 status code isn't retured
+  - ~~When authentication fails a 401 status code isn't retured~~ *Done!*
 
 
 
