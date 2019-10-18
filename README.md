@@ -4,15 +4,15 @@ Sean Voigts (https://teamtreehouse.com/projects/rest-api)
 
 ## Greetings
 
-Task list:
+## Task list:
+
+  - ~~Remove sequilize and reinstall and configure with CLI~~ *Done! What a mess!* 
 
 **Lee's Review**
 
   - ~~When I run the Create User test on the /users POST route I get a 401 error with an "Access Denied" error. It looks like you are trying to authenticate the user here but that isn't necessary or possible here since you are creating a new user.~~ *Done!*
 
-  - The Get Courses and Get Course tests are working great but I would suggest returning more user info than just userId. While that works within the requirements of this project since it doesn't specify what user info is returned, some of that extra info will come in handy in the next project when you build out a front-end for this application.
-
-  - - *Notes from Sean: I'm going to punt on this issue. I'm getting an error: "SequelizeEagerLoadingError: User is not associated to Course!"*
+  - ~~The Get Courses and Get Course tests are working great but I would suggest returning more user info than just userId. While that works within the requirements of this project since it doesn't specify what user info is returned, some of that extra info will come in handy in the next project when you build out a front-end for this application.~~ *Done!*
 
   - ~~The Incomplete Data tests are working perfectly for the /courses POST and PUT route but I can't test the /users POST because of the authentication issue mentioned earlier so be sure to double-check this one that other issue is fixed.~~ *Done!*
 
