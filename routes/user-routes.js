@@ -9,8 +9,8 @@ const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
 
 // Database
-const db = require('../db');
-const { User } = db.models;
+const db = require('../models');
+const { User } = db;
 
 // Authentication Middleware 
 const authenticateUser = require('../middleware/authenticateUser');

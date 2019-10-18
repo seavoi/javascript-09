@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 // Database
-const db = require('../db');
-const { Course } = db.models;
-const { User } = db.models;
+const db = require('../models');
+const { Course } = db;
+const { User } = db;
 
 // Require a Validation Library
 const { validationResult } = require('express-validator');
@@ -26,18 +26,13 @@ router.get('/courses', async (req, res, next) => {
         include: ['id', 'userId', 'title', 'description', 'estimatedTime', 'materialsNeeded'],
         exclude: ['createdAt', 'updatedAt']
       },
-
-      /* GETING ERROR: "SequelizeEagerLoadingError: User is not associated to Course!"
-
-      - - But I was told return UserId is sufficent! 
-
       include: [{ 
         model: User,
         attributes: {
           include: ['id', 'firstName', 'lastName', 'emailAddress'],
           exclude: ['password', 'createdAt', 'updatedAt']
         }
-      }] */
+      }] 
 
     });
     res.json({course}).status(200);
@@ -50,7 +45,24 @@ router.get('/courses', async (req, res, next) => {
 // Return course by ID
 router.get('/courses/:id', async (req, res, next) => {
   try {
-    course = await Course.findByPk(req.params.id);
+    //course = await Course.findByPk(req.params.id);
+
+    course = await Course.findByPk(req.params.id, {
+      model: Course,
+      attributes: {
+        include: ['id', 'userId', 'title', 'description', 'estimatedTime', 'materialsNeeded'],
+        exclude: ['createdAt', 'updatedAt']
+      },
+      include: [{ 
+        model: User,
+        attributes: {
+          include: ['id', 'firstName', 'lastName', 'emailAddress'],
+          exclude: ['password', 'createdAt', 'updatedAt']
+        }
+      }] 
+
+    });
+
     // console.log(course);
     res.status(200).json({course});
   } catch (err) {
